@@ -7,6 +7,16 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
+	
+	<% if user_signed_in? %>
+		Currently logged in as: <%= current_user.email %> (<%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>)
+	<% else %>
+		<%= link_to "Sign In", new_user_session_path %> | 
+		<%= link_to "Register", new_user_registration_path %>
+	<% end %>
+	
+	<p id="notice"><%= notice %></p>
+	<p id="alert"><%= alert %></p>
 
 <%= yield %>
 
