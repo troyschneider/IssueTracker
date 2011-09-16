@@ -1,10 +1,14 @@
 class IssuesController < ApplicationController
+  authorize_resource
+  
   before_filter :authenticate_user!, :except => [:show, :index]
+  
   
   # GET /issues
   # GET /issues.xml
   def index
-    @issues = Issue.all
+    @search = Issue.search params[:search]
+    @issues = @search.paginate :page => params[:page], :per_page =>5
 
     respond_to do |format|
       format.html # index.html.erb

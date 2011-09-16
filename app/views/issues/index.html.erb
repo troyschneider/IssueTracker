@@ -1,29 +1,34 @@
-<h1>Listing issues</h1>
+<%= form_for @search do |f| %>
+  <p>
+  <%= f.text_field :description_contains %>
+  <%= f.submit 'Search' %>
+  </p>
+<% end %>
 
-<table>
+<table border="0" width="60%">
   <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Status</th>
-	<th>User</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th align="left">Title</th>
+    <th align="left">Info</th>
+    <th align="left">Actions</th>
   </tr>
-
 <% @issues.each do |issue| %>
   <tr>
-    <td><%= issue.title %></td>
-    <td><%= issue.description %></td>
-    <td><%= issue.status %></td>
-	<td><%= issue.user_id %></td>
-    <td><%= link_to 'Show', issue %></td>
-    <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
-    <td><%= link_to 'Destroy', issue, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><h3><%= issue.title %></h3></td>
+    <td><%= issue.description %> (<%= issue.status %>)<br/>Assigned To <%= issue.user_id %></td>
+    <td valign="top">
+      <%= link_to 'Show', issue %>
+      <% if can? :manage, issue %>
+       | <%= link_to 'Edit', edit_issue_path(issue) %> | 
+      <%= link_to 'Destroy', issue, :confirm => 'Are you sure?', :method => :delete %>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>
+<br />
+<%= will_paginate @issues %>
 
 <br />
-
-<%= link_to 'New Issue', new_issue_path %>
+<% if can? :create, Issue %>
+  <%= link_to 'New Issue', new_issue_path %>
+<% end %>
