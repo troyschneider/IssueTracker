@@ -46,8 +46,10 @@ class IssuesController < ApplicationController
   # POST /issues
   # POST /issues.xml
   def create
-    @issue = Issue.new(params[:issue])
-    @issue.user_id = current_user
+    #@issue = Issue.new(params[:issue])
+    @issue = current_user.issues.build(params[:issue])
+    #@issue.user_id = current_user
+    
 
     respond_to do |format|
       if @issue.save

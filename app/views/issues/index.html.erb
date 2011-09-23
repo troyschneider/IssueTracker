@@ -15,7 +15,7 @@
 <% @issues.each do |issue| %>
   <tr>
     <td><%= issue.title %></td>
-    <td><%= issue.description %> (<%= issue.status %>): Assigned To <%= issue.user_id %></td>
+    <td><%= issue.description %> (<%= issue.status %>): created by <%= issue.user_id %></td>
     <td><%= issue.notes.length %></td>
     <td valign="top">
       <%= link_to 'Show', issue %>
