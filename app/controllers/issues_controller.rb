@@ -7,7 +7,7 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.xml
   def index
-    @search = Issue.search params[:search]
+    @search = Issue.includes(:notes).search params[:search]
     @issues = @search.paginate :page => params[:page], :per_page =>5
 
     respond_to do |format|

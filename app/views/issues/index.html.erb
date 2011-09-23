@@ -5,16 +5,18 @@
   </p>
 <% end %>
 
-<table border="0" width="60%">
+<table border="0">
   <tr>
     <th align="left">Title</th>
     <th align="left">Info</th>
+    <th align="left">Notes</th>    
     <th align="left">Actions</th>
   </tr>
 <% @issues.each do |issue| %>
   <tr>
-    <td><h3><%= issue.title %></h3></td>
-    <td><%= issue.description %> (<%= issue.status %>)<br/>Assigned To <%= issue.user_id %></td>
+    <td><%= issue.title %></td>
+    <td><%= issue.description %> (<%= issue.status %>): Assigned To <%= issue.user_id %></td>
+    <td><%= issue.notes.length %></td>
     <td valign="top">
       <%= link_to 'Show', issue %>
       <% if can? :manage, issue %>
